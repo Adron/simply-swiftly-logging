@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F39267132DD92BEC001990B0 /* DatadogCore in Frameworks */ = {isa = PBXBuildFile; productRef = F39267122DD92BEC001990B0 /* DatadogCore */; };
+		F39267152DD92BEC001990B0 /* DatadogCrashReporting in Frameworks */ = {isa = PBXBuildFile; productRef = F39267142DD92BEC001990B0 /* DatadogCrashReporting */; };
+		F39267172DD92BEC001990B0 /* DatadogLogs in Frameworks */ = {isa = PBXBuildFile; productRef = F39267162DD92BEC001990B0 /* DatadogLogs */; };
+		F39267192DD92BEC001990B0 /* DatadogRUM in Frameworks */ = {isa = PBXBuildFile; productRef = F39267182DD92BEC001990B0 /* DatadogRUM */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F3083EE52DCEA75A00CFDCB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +59,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F39267152DD92BEC001990B0 /* DatadogCrashReporting in Frameworks */,
+				F39267172DD92BEC001990B0 /* DatadogLogs in Frameworks */,
+				F39267192DD92BEC001990B0 /* DatadogRUM in Frameworks */,
+				F39267132DD92BEC001990B0 /* DatadogCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +123,10 @@
 			);
 			name = "simply-swifty-logging";
 			packageProductDependencies = (
+				F39267122DD92BEC001990B0 /* DatadogCore */,
+				F39267142DD92BEC001990B0 /* DatadogCrashReporting */,
+				F39267162DD92BEC001990B0 /* DatadogLogs */,
+				F39267182DD92BEC001990B0 /* DatadogRUM */,
 			);
 			productName = "simply-swifty-logging";
 			productReference = F3083ED42DCEA75900CFDCB5 /* simply-swifty-logging.app */;
@@ -195,6 +210,9 @@
 			);
 			mainGroup = F3083ECB2DCEA75900CFDCB5;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F39267112DD92BEC001990B0 /* XCRemoteSwiftPackageReference "dd-sdk-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F3083ED52DCEA75900CFDCB5 /* Products */;
 			projectDirPath = "";
@@ -558,6 +576,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F39267112DD92BEC001990B0 /* XCRemoteSwiftPackageReference "dd-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DataDog/dd-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.27.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F39267122DD92BEC001990B0 /* DatadogCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F39267112DD92BEC001990B0 /* XCRemoteSwiftPackageReference "dd-sdk-ios" */;
+			productName = DatadogCore;
+		};
+		F39267142DD92BEC001990B0 /* DatadogCrashReporting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F39267112DD92BEC001990B0 /* XCRemoteSwiftPackageReference "dd-sdk-ios" */;
+			productName = DatadogCrashReporting;
+		};
+		F39267162DD92BEC001990B0 /* DatadogLogs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F39267112DD92BEC001990B0 /* XCRemoteSwiftPackageReference "dd-sdk-ios" */;
+			productName = DatadogLogs;
+		};
+		F39267182DD92BEC001990B0 /* DatadogRUM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F39267112DD92BEC001990B0 /* XCRemoteSwiftPackageReference "dd-sdk-ios" */;
+			productName = DatadogRUM;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F3083ECC2DCEA75900CFDCB5 /* Project object */;
 }
