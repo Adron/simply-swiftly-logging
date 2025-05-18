@@ -1,7 +1,0 @@
-Based on this project and the history of it that you can derive from our conversations and development of it, write up the following.
-
-1. a markdown file in docs about UIkit vs. SwiftUI and Datadog. The file should be named "uikit-swiftui-datadog.md" and should have all the details of how this app was built to log and use RUM for UIkit and shifted to SwiftUI, along with some of the confusing parts of instrumenting those respective UI elements. This markdown file should be thorough with extensive detail.
-
-2. a markdown file in docs about what is wired up in this app, and how the feed of events mimics an application's set of events that are usually logged. The file should be named "datadog-reasoning.md" and should include the aforementioned things and the reasoning behind having an event stream and how these various events are logged vs. tracked in RUM vs. the differences and reporting in the crash analytics. This markdown file should be thorough with extensive detail.
-
-3. the final markdown file should have a thorough write up of all the code, how it is used to log to Datadog for logging and RUM usage, along with the individual code sections and the order of implementation that this configuration and integration should follow. This markdown file should be thorough and extensive in detail.
