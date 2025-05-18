@@ -9,33 +9,27 @@ import Foundation
 import DatadogCore
 import DatadogLogs
 import DatadogRUM
+import SwiftUI
 
-class DatadogLoggingService {
+class DatadogLoggingService: ObservableObject {
     static let shared = DatadogLoggingService()
     private let logger: any DatadogLogs.LoggerProtocol
+    var onLogSent: ((String) -> Void)?
     
     private init() {
-        // Create a logger instance
-        logger = DatadogLogs.Logger.create(
-            with: DatadogLogs.Logger.Configuration(
-                name: "simply-swifty-logging",
-                networkInfoEnabled: true,
-                consoleLogFormat: .short
-            )
-        )
-        setupDatadog()
-    }
-    
-    private func setupDatadog() {
-        // Initialize Datadog
+        // Initialize Datadog first
         Datadog.initialize(
             with: Datadog.Configuration(
-                clientToken: "pub28d62b08073738b84c86ac2bb7dfc0c8",
-                env: "development",
-                service: "simply-swifty-logging"
+                clientToken: Config.Datadog.clientToken,
+                env: Config.Datadog.environment,
+                site: .us5,  // Explicitly set the Datadog site
+                service: Config.Datadog.service
             ),
             trackingConsent: .granted
         )
+        
+        // Enable debug logging
+        Datadog.verbosityLevel = .debug
         
         // Initialize Logs
         DatadogLogs.Logs.enable(
@@ -47,13 +41,26 @@ class DatadogLoggingService {
         // Initialize RUM
         DatadogRUM.RUM.enable(
             with: DatadogRUM.RUM.Configuration(
-                applicationID: "ad4f70c6-4947-4aba-83db-1eda66d5b599",
-                uiKitViewsPredicate: DefaultUIKitRUMViewsPredicate(),
-                uiKitActionsPredicate: DefaultUIKitRUMActionsPredicate(),
+                applicationID: Config.Datadog.applicationId,
                 longTaskThreshold: 0.1,
                 viewEventMapper: nil
             )
         )
+        
+        // Create a logger instance after Datadog is initialized
+        logger = DatadogLogs.Logger.create(
+            with: DatadogLogs.Logger.Configuration(
+                name: "simply-swifty-logging",
+                networkInfoEnabled: true,
+                consoleLogFormat: .short
+            )
+        )
+        
+        // Log initial connection
+        logger.info("Datadog SDK initialized and connected", attributes: [
+            "service": "simply-swifty-logging",
+            "environment": "development"
+        ] as [String: any Encodable])
     }
     
     func logMessage(_ message: String, level: LogLevel = .info) {
@@ -77,15 +84,19 @@ class DatadogLoggingService {
             logger.critical(message, attributes: attributes)
         }
         
+        // Notify that a log was sent
+        let timestamp = Date().formatted(date: .omitted, time: .standard)
+        onLogSent?("📤 Datadog Log Sent [\(timestamp)] - Level: \(level.rawValue)")
+        
         // Track as RUM event
         let rum = DatadogRUM.RUMMonitor.shared()
-        rum.addUserAction(
+        rum.addAction(
             type: .custom,
             name: "message_displayed",
             attributes: [
                 "message": message,
                 "level": level.rawValue
-            ]
+            ] as [String: any Encodable]
         )
     }
     
@@ -106,22 +117,8 @@ class DatadogLoggingService {
             source: .custom,
             attributes: [
                 "context": context
-            ]
+            ] as [String: any Encodable]
         )
-    }
-    
-    func startViewTracking(viewName: String) {
-        let rum = DatadogRUM.RUMMonitor.shared()
-        rum.startView(
-            key: viewName,
-            name: viewName,
-            attributes: [:]
-        )
-    }
-    
-    func stopViewTracking() {
-        let rum = DatadogRUM.RUMMonitor.shared()
-        rum.stopView()
     }
 }
 
@@ -133,5 +130,34 @@ enum LogLevel: String {
     case warning
     case error
     case critical
+}
+
+// SwiftUI View Modifier for RUM tracking
+struct RUMViewModifier: ViewModifier {
+    let name: String
+    @StateObject private var loggingService = DatadogLoggingService.shared
+    
+    func body(content: Content) -> some View {
+        content
+            .onAppear {
+                let rum = DatadogRUM.RUMMonitor.shared()
+                rum.startView(
+                    key: name,
+                    name: name,
+                    attributes: [:] as [String: any Encodable]
+                )
+            }
+            .onDisappear {
+                let rum = DatadogRUM.RUMMonitor.shared()
+                rum.stopView(key: name)
+            }
+    }
+}
+
+// SwiftUI View extension for easy RUM tracking
+extension View {
+    func trackRUMView(name: String) -> some View {
+        modifier(RUMViewModifier(name: name))
+    }
 }
 
