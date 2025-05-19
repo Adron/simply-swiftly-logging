@@ -209,4 +209,3 @@ Common issues and solutions:
 
 - [Datadog iOS SDK Documentation](https://docs.datadoghq.com/real_user_monitoring/ios/)
 - [Datadog Log Management](https://docs.datadoghq.com/logs/)
-- [iOS Best Practices](https://docs.datadoghq.com/real_user_monitoring/ios/best_practices/) 

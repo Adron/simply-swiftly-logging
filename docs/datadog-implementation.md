@@ -320,7 +320,7 @@ func testContentView() {
 - Review log levels
 
 ## Conclusion
-This implementation provides a robust foundation for logging and monitoring in iOS applications using Datadog. By following these steps and best practices, you can ensure effective monitoring and debugging capabilities in your application.
+This implementation provides a foundation for logging and monitoring in iOS applications using Datadog. By following these steps and best practices, you can ensure effective monitoring and debugging capabilities in your application.
 
 ## References
 - [Datadog iOS SDK Documentation](https://docs.datadoghq.com/real_user_monitoring/ios/)

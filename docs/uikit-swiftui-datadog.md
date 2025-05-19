@@ -1,7 +1,7 @@
 # UIKit vs SwiftUI: Datadog Integration Guide
 
 ## Overview
-This document outlines the key differences and considerations when implementing Datadog monitoring in both UIKit and SwiftUI applications, based on our experience with the simply-swifty-logging project.
+This document outlines the key differences and considerations when implementing Datadog monitoring in both UIKit and SwiftUI applications, based on my experience with the simply-swifty-logging project.
 
 ## UIKit Implementation
 
@@ -181,4 +181,4 @@ While both UIKit and SwiftUI can be effectively integrated with Datadog, SwiftUI
 ## References
 - [Datadog iOS SDK Documentation](https://docs.datadoghq.com/real_user_monitoring/ios/)
 - [SwiftUI Documentation](https://developer.apple.com/documentation/swiftui)
-- [UIKit Documentation](https://developer.apple.com/documentation/uikit) 
+- [UIKit Documentation](https://developer.apple.com/documentation/uikit)
