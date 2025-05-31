@@ -1,5 +1,7 @@
 # Simply Swiftly Logging
 
+> NOTE: I've written a blog entry to more thoroughly detail this example in "[Implementing Datadog in iOS: A SwiftUI vs UIKit Perspective](https://compositecode.blog/2025/05/31/implementing-datadog-in-ios-a-swiftui-vs-uikit-perspective/)"
+
 A Swift-based iOS application demonstrating best practices for implementing Datadog logging and monitoring in iOS applications.
 
 ## Overview
